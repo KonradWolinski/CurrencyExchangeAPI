@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CurrencyExchangeAPI.Services
+namespace CurrencyExchangeAPI.Models
 {
-    public class ExchangeRatesContext : DbContext
+    public class ExchangeRateContext : DbContext
     {
+        public ExchangeRateContext(DbContextOptions<ExchangeRateContext> options) : base(options)
+        {
 
+        }
 
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
     }
