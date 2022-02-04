@@ -8,7 +8,7 @@ namespace CurrencyExchangeAPI.Services
     {
         Task<Models.ExchangeRate> GetExchangeRateAsync(string code);
         public Task AddExchangeRatesAsync(ICollection<Models.ExchangeRate> exchangeRates);
-        public Task<Models.ExchangeRate> GetExchangeRateOnDateAsync(DateTime date);
+        public Task<ICollection<Models.ExchangeRate>> GetExchangeRateOnDateAsync(DateTime date);
         public Task<ICollection<Models.ExchangeRate>> GetExchangeRateTimeframe(DateTime dateFrom, DateTime dateTo, string code);
 
 

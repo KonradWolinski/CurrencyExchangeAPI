@@ -35,8 +35,8 @@ namespace CurrencyExchangeAPI.Controllers.v1
         [HttpGet("date/{date}")]
         public async Task<IActionResult> Date(DateTime date)
         {
-            var rate = await _repository.GetExchangeRateOnDateAsync(date);
-            if (rate != null)
+            var rate = (List<Models.ExchangeRate>)await _repository.GetExchangeRateOnDateAsync(date);
+            if (rate != null && rate.Count > 0 && rate[0].LastUpdate == date)
                 return Ok(rate);
             return NotFound();
         }

@@ -26,7 +26,10 @@ namespace CurrencyExchangeAPI.Services
                     $"{url}/tables/{table}?format=json");
                 var response = await _httpClient.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
+
+                //remove outside array
                 responseString = responseString.Substring(1, responseString.Length - 2);
+               
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true

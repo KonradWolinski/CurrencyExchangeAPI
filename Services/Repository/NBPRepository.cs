@@ -29,14 +29,14 @@ namespace CurrencyExchangeAPI.Services
             await _exchangeRatesContext.AddRangeAsync(exchangeRates);
             await _exchangeRatesContext.SaveChangesAsync();
         }
-        public async Task<Models.ExchangeRate> GetExchangeRateOnDateAsync(DateTime date)
+        public async Task<ICollection<Models.ExchangeRate>> GetExchangeRateOnDateAsync(DateTime date)
         {
             if (date.CompareTo(new DateTime(2002, 01, 2)) < 0)
                 return null;
 
             var rate = await _exchangeRatesContext.ExchangeRates
                 .Where(val => val.LastUpdate.Date == date.Date)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
             return rate;
         }
         public async Task<ICollection<Models.ExchangeRate>> GetExchangeRateTimeframe(DateTime dateFrom, DateTime dateTo, string code)
