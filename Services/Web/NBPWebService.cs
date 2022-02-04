@@ -26,7 +26,13 @@ namespace CurrencyExchangeAPI.Services
                     $"{url}/tables/{table}?format=json");
                 var response = await _httpClient.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
-                var deserializedTableResponse = JsonSerializer.Deserialize<Models.JsonModels.TableResponse>(responseString);
+                responseString = responseString.Substring(1, responseString.Length - 2);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var deserializedTableResponse = JsonSerializer.Deserialize<Models.JsonModels.TableResponse>(responseString, options);
                 foreach (var rate in deserializedTableResponse.Rates)
                     rate.LastUpdate = deserializedTableResponse.EffectiveDate;
                 exchangeRates.AddRange(deserializedTableResponse.Rates);

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CurrencyExchangeAPI.Controllers.v1
 {
+    //[BasicAuthorization]
     [Route("api/v1")]
     public class CurrencyExchangeController : Controller
     {
@@ -23,7 +24,6 @@ namespace CurrencyExchangeAPI.Controllers.v1
             _webService = webService;
             _repository = repository;
         }
-        [BasicAuthorization]
         [HttpGet("{code}")]
         public async Task<IActionResult> Index(string code)
         {
@@ -32,7 +32,6 @@ namespace CurrencyExchangeAPI.Controllers.v1
                 return Ok(rate);
             return NotFound();
         }
-        [BasicAuthorization]
         [HttpGet("date/{date}")]
         public async Task<IActionResult> Date(DateTime date)
         {
@@ -41,7 +40,6 @@ namespace CurrencyExchangeAPI.Controllers.v1
                 return Ok(rate);
             return NotFound();
         }
-        [BasicAuthorization]
         [HttpGet("convert")]
         public async Task<IActionResult> Convert(string codeFrom, string codeTo, float value)
         {
@@ -69,13 +67,10 @@ namespace CurrencyExchangeAPI.Controllers.v1
             var conversionRate = rateFrom / rateTo;
             return Ok(value * conversionRate);
         }
-        [BasicAuthorization]
         [HttpGet("fromPLN")]
         public async Task<IActionResult> ConvertFromPLN(string codeTo, float value) => await Convert("PLN", codeTo, value);
-        [BasicAuthorization]
         [HttpGet("toPLN")]
         public async Task<IActionResult> ConvertToPLN(string codeFrom, float value) => await Convert(codeFrom, "PLN", value);
-        [BasicAuthorization]
         [HttpGet("historicalData")]
         public async Task<IActionResult> GetHistoricalDataCSV(DateTime dateFrom, DateTime dateTo, string code)
         {
